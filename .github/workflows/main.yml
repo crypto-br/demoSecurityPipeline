@@ -36,16 +36,28 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: hml
+      url: 'https://google.com.br'
     needs: deploy-dev
     steps:
     - name: Rodando o Deploy HML
       run: echo Deploy HML deu bom
     
+  deploy-dast:
+    runs-on: ubuntu-latest
+    environment:
+      name: dast
+    needs: deploy-hml
+    steps:
+    - name: Rodando o OWASP ZAP
+      uses: zaproxy/action-baseline@v0.4.0
+      with:
+        target: 'https://google.com.br'
+    
   deploy-prd:
     runs-on: ubuntu-latest
     environment:
       name: prd
-    needs: deploy-hml
+    needs: [deploy-hml, deploy-dast]
     steps:
     - name: Rodando o Deploy PRD
       run: echo Deploy PRD deu bom
