@@ -1,0 +1,28 @@
+name: pipeSEC
+on:
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Rodando o Build
+      run: echo Build deu bom
+      
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    needs: build
+    steps:
+    - name: Rodando o Deploy DEV
+      run: echo Deploy DEV deu bom
+      
+  deploy-prd:
+    runs-on: ubuntu-latest
+    environment:
+      name: prd
+    needs: deploy-dev
+    steps:
+    - name: Rodando o Deploy PRD
+      run: echo Deploy PRD deu bom
