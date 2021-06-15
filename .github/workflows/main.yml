@@ -17,12 +17,21 @@ jobs:
     steps:
     - name: Rodando o Deploy DEV
       run: echo Deploy DEV deu bom
-      
+  
+  deploy-hml:
+    runs-on: ubuntu-latest
+    environment:
+      name: hml
+    needs: deploy-dev
+    steps:
+    - name: Rodando o Deploy HML
+      run: echo Deploy HML deu bom
+    
   deploy-prd:
     runs-on: ubuntu-latest
     environment:
       name: prd
-    needs: deploy-dev
+    needs: deploy-hml
     steps:
     - name: Rodando o Deploy PRD
       run: echo Deploy PRD deu bom
