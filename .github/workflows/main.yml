@@ -37,7 +37,7 @@ jobs:
     environment:
       name: hml
       url: 'https://google.com.br'
-    needs: deploy-dev
+    needs: [deploy-dev, deploy-sast]
     steps:
     - name: Rodando o Deploy HML
       run: echo Deploy HML deu bom
