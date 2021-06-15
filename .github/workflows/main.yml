@@ -18,6 +18,20 @@ jobs:
     - name: Rodando o Deploy DEV
       run: echo Deploy DEV deu bom
   
+  deploy-sast:
+    runs-on: ubuntu-latest
+    environment:
+      name: sast
+    needs: build
+    steps:
+    - name: Rodando o HoruSec
+      run: |
+          sudo apt-get install git -y
+          git clone https://github.com/crypto-br/demoSecurityPipeline.git
+          cd demoSecurityPipeline
+          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/master/deployments/scripts/install.sh | bash
+          horusec start -p="./"
+  
   deploy-hml:
     runs-on: ubuntu-latest
     environment:
