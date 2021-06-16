@@ -30,7 +30,7 @@ jobs:
           git clone https://github.com/crypto-br/demoSecurityPipeline.git
           cd demoSecurityPipeline
           curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/master/deployments/scripts/install.sh | bash
-          horusec start -p="./" -e="true"
+          horusec start -p="./" 
   
   deploy-hml:
     runs-on: ubuntu-latest
