@@ -9,6 +9,28 @@ jobs:
     - name: Rodando o Build
       run: echo Build deu bom
       
+  check-image:
+    runs-on: ubuntu-18.04
+    environment:
+      name: check
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Build an image from Dockerfile
+        run: |
+          docker build -t rpadam/docker-selenium-dart .
+      
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'rpadam/docker-selenium-dart'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+    
   deploy-dev:
     runs-on: ubuntu-latest
     environment:
