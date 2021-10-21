@@ -12,8 +12,7 @@ jobs:
       
       - name: Build an image from Dockerfile
         run: |
-          docker pull openjdk
-          docker build -t openjdk
+          docker run openjdk
       
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
